@@ -8,7 +8,7 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var scores, roundScores, activePlayer;
+var scores, roundScore, activePlayer;
 // define scores 
 scores = [0,0]; 
 roundScore = 0;
@@ -18,6 +18,11 @@ activePlayer = 0;
 
 document.querySelector('.dice').style.display = 'none'; 
 
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+
 // setting up event 
 document.querySelector('.btn-roll').addEventListener('click', function() {
     // get a random number on dice 
@@ -26,16 +31,22 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png'; 
+
+    if (dice !== 1) {
+        roundScore += dice; 
+        document.querySelector('#current-'+ activePlayer).textContent = roundScore; 
+    } else { 
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
+    }
+
 }); // we dont need 
 // to call the btn function here - call back function - the event listener will call it 
 
 // if we wrote it as function() { } - this is called anonymous function 
 
 
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+
 
 
 document.querySelector('#current-' + activePlayer).textContent = dice; // selects the first element it finds  
